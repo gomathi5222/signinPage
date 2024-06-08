@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import Map from '@arcgis/core/Map.js';
 import Mapview from '@arcgis/core/views/MapView.js';
+// import { Popup, Collection, ActionButton } from '@arcgis/core';
 import Zoom from '@arcgis/core/widgets/Zoom.js';
 import Directions from '@arcgis/core/widgets/Directions.js';
 import RouteLayer from '@arcgis/core/layers/RouteLayer.js';
@@ -32,6 +33,7 @@ import Point from '@arcgis/core/geometry/Point.js';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
 import * as json from 'src/assets/services.json';
 import MapView from '@arcgis/core/views/MapView.js';
+import { Action } from 'rxjs/internal/scheduler/Action';
 @Component({
   selector: 'app-front-page',
   templateUrl: './front-page.component.html',
@@ -163,7 +165,14 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       view.when(() => {
         const popup = view.popup;
-
+        const directPopupAction = new Action({
+          title: 'Get Directions',
+          id: 'directPopup',
+          className: 'esri-icon-directions',
+          execute: () => {
+            // action logic here
+          },
+        });
         const popupTemplate = new PopupTemplate({
           title: 'My Popup',
           content: 'This is a sample popup',
@@ -181,7 +190,7 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
             // Handle action click event
           });
         });
-        // view.popup['template'] = popupTemplate;
+        view.popup.actions = popupTemplate.actions;
         popup.on('trigger-action', (event) => {
           if (event.action.id === 'zoom-to-feature') {
             // Zoom to feature logic here
