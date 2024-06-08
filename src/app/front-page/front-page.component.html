@@ -1,0 +1,44 @@
+<div #mapViewNode>
+  <div #MangaloreLogo>
+    <img id="img--logo"
+      src="https://k5smartcity.maps.arcgis.com/sharing/rest/content/items/039544dd62d04c2e8e5ef04bbb354cf5/data"
+      alt="Mangaluru" title="MANGALURU" />
+  </div>
+  <button #signIn id="signIn" class="btn-sm btn btn-outline-blue"> Sign In <i class="fa-regular fa-user"
+      style="color: #ffffff;"></i></button>
+  <button #Atm id="Atm" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)"
+    value="ATM CENTERS"> <i class="fa-solid fa-credit-card" style="color: #0c0c0c;"></i>
+    ATM
+  </button>
+  <button id="Banks" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)" value="BANKS">
+    <i class="fa-solid fa-building-columns" style="color: #0c0c0c;"></i>
+    BANK
+  </button>
+  <button id="Restaurants" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)"
+    value="RESTAURANTS">
+    <i class="fa-solid fa-burger" style="color: #0c0c0c;"></i>
+    RESTAURANTS
+  </button>
+  <button id="Bustops" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)" value="BUS STOPS">
+    <i class="fa-solid fa-bus" style="color: #0c0c0c;"></i>
+    BUS STOP
+  </button>
+  <button id="park" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)" value="PARK">
+    <i class="fa-solid fa-tree" style="color: #0c0c0c;"></i>
+    PARK
+  </button>
+  <button id="Medical" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)" value="MEDICALS">
+    <i class="fa-solid fa-capsules" style="color: #0c0c0c;"></i>
+    MEDICALS
+  </button>
+  <button id="Government" class="btn-sm btn btn-outline-blue ActionButtons" (click)="addLayers($event)"
+    value="GOVERNMENT OFFICES">
+    <i class="fa-regular fa-building" style="color: #0c0c0c;"></i>
+    GOVERNMENT
+  </button>
+  <button #clear id="clear" class="btn btn-outline-blue ActionButtons" (click)="clearLayers()" value="Clear"
+    style="font-weight: bold;">
+    <i class="fa-solid fa-delete-left" style="color: #0c0c0c;"></i>
+    CLEAR
+  </button>
+</div>

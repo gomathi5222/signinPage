@@ -1,1 +1,122 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: black !important;
+  font-family: "Afacad", sans-serif;
+}
+.esri-view {
+  padding: 0px;
+  /* margin-left: 300px; */
+  width: 100%;
+  height: 100%;
+  font-family: Afacad;
+  color: black !important;
+}
+.esri-feature-content {
+  max-height: 200px; /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+#menuBtn {
+  margin-left: 32px;
+  width: 36px !important;
+  height: 32px !important;
+  background-color: white !important;
+  border: none;
+  transition: width 2s;
+}
+#direction--widget {
+  align-items: end;
+  margin-right: -50px;
+
+  & #btn--div {
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+
+    & #clear--dir-widget {
+      /* background-color: #0061ff; */
+      border: none;
+      margin-bottom: -10px;
+      background-color: white;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+/* .esri-compass {
+  border-radius: 0% !important;
+} */
+#signIn {
+  color: #fcfcfc !important;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+  padding: 5px;
+  text-wrap: balance;
+  border: 0;
+  /* background-color: #d4241a; */
+  border-radius: 10px 10px !important;
+  background-color: #f54e45 !important;
+}
+.esri-widget--button {
+  width: 32px !important;
+  height: 32px !important;
+  color: #000000 !important;
+  font-weight: bolder !important;
+  font-size: 14px !important;
+}
+.esri-ui-corner .esri-component {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.esri-directions__scroller {
+  /* margin-top: 150px !important; */
+  /* color: #d4241a !important; */
+  min-height: 650px !important;
+  min-width: 330px;
+  /* margin: 50px; */
+}
+.esri-ui-bottom-left {
+  bottom: -20px !important;
+  left: -10px !important;
+}
+/* .esri-ui-top-right {
+  margin-top: 50px !important;
+} */
+
+.esri-ui-bottom-left {
+  margin-left: 28% !important;
+}
+.esri-ui-top-right .esri-ui-corner {
+  top: 100px;
+}
+
+.ActionButtons {
+  color: #070404 !important;
+  cursor: pointer;
+  height: 30px;
+  text-wrap: balance;
+  border: 0;
+  border-radius: 40px 40px !important;
+  background-color: #ffffff !important;
+  font-family: "Afacad", sans-serif;
+  font-size: 12px;
+}
+.esri-directions__scroller {
+  /* margin-top: 150px !important; */
+  /* color: #d4241a !important; */
+  min-height: 550px !important;
+  min-width: 330px;
+  /* margin: 50px; */
+}
+.esri-component {
+  &.esri-search {
+      &.esri-widget {
+          width: 300px !important;
+      }
+  }
+}
