@@ -28,7 +28,7 @@ import LabelClass from '@arcgis/core/layers/support/LabelClass.js';
 import PopupTemplate from '@arcgis/core/PopupTemplate';
 import * as reactiveUtils from '@arcgis/core/core/reactiveUtils.js';
 import Point from '@arcgis/core/geometry/Point.js';
-import Widget from '@arcgis/core/widgets/Widget';
+
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
 import * as json from 'src/assets/services.json';
 import MapView from '@arcgis/core/views/MapView.js';
@@ -163,19 +163,25 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       view.when(() => {
         const popup = view.popup;
-        // popup.actions = [
-        //   {
-        //     title: 'Zoom to feature',
-        //     id: 'zoom-to-feature',
-        //     className: 'esri-icon-zoom-in-magnifying-glass',
-        //   },
-        //   {
-        //     title: 'Edit feature',
-        //     id: 'edit-feature',
-        //     className: 'esri-icon-edit',
-        //   },
-        // ];
 
+        const popupTemplate = new PopupTemplate({
+          title: 'My Popup',
+          content: 'This is a sample popup',
+          actions: [
+            {
+              title: 'My Action',
+              id: 'my-action',
+              className: 'my-action-class',
+              type: 'toggle',
+            },
+          ],
+        });
+        popupTemplate.actions.forEach((action: any) => {
+          action.on('click', () => {
+            // Handle action click event
+          });
+        });
+        // view.popup['template'] = popupTemplate;
         popup.on('trigger-action', (event) => {
           if (event.action.id === 'zoom-to-feature') {
             // Zoom to feature logic here
