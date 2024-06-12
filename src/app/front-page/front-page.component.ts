@@ -29,11 +29,11 @@ import LabelClass from '@arcgis/core/layers/support/LabelClass.js';
 import PopupTemplate from '@arcgis/core/PopupTemplate';
 import * as reactiveUtils from '@arcgis/core/core/reactiveUtils.js';
 import Point from '@arcgis/core/geometry/Point.js';
-
+// import { watch } from '@arcgis/core/watchUtils';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer.js';
 import * as json from 'src/assets/services.json';
 import MapView from '@arcgis/core/views/MapView.js';
-import { Action } from 'rxjs/internal/scheduler/Action';
+// import ActionButton from 'esri/support/actions/ActionButton';
 @Component({
   selector: 'app-front-page',
   templateUrl: './front-page.component.html',
@@ -45,7 +45,7 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
   res: any = [];
   services: any = json;
   layer: any;
-  // btn = new ActionButton();
+  // btn = watch;
   routeLayer = new RouteLayer({ title: 'Route Layer' });
   @ViewChild('signIn', { static: true }) signIn!: ElementRef;
   @ViewChild('Atm', { static: true }) Atm!: ElementRef;
@@ -163,52 +163,86 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!response) {
         return;
       }
+
       view.when(() => {
-        const popup = view.popup;
-        const directPopupAction = new Action({
-          title: 'Get Directions',
-          id: 'directPopup',
-          className: 'esri-icon-directions',
-          execute: () => {
-            // action logic here
-          },
-        });
+        const popup = view.popup as __esri.Popup;
+
         const popupTemplate = new PopupTemplate({
-          title: 'My Popup',
-          content: 'This is a sample popup',
           actions: [
             {
               title: 'My Action',
               id: 'my-action',
               className: 'my-action-class',
               type: 'toggle',
+              active: true,
+              icon: 'esri-icon-map-pin',
+              value: true,
+              visible: true,
+              disabled: false,
             },
           ],
         });
-        popupTemplate.actions.forEach((action: any) => {
-          action.on('click', () => {
-            // Handle action click event
-          });
-        });
-        view.popup.actions = popupTemplate.actions;
-        popup.on('trigger-action', (event) => {
-          if (event.action.id === 'zoom-to-feature') {
-            // Zoom to feature logic here
-          } else if (event.action.id === 'edit-feature') {
-            // Edit feature logic here
-          }
-        });
-      });
-      view.openPopup({
-        // actions: [{
-        //   title: "More Info",
-        //   id: "more-info",
-        //   className: "esri-icon-document",
-        //   execute: () => {
-        //     // Implement your custom action here, e.g., open a modal, link, etc.
-        //     alert("More info action clicked!");
+
+        popup.actions = popupTemplate.actions;
+        // popup.on('trigger-action', (event: { action: { id: string } }) => {
+        //   if (event.action.id === 'my-action') {
+        //     console.log('hi');
         //   }
-        // }],
+        // });
+        const handle = reactiveUtils.watch(
+          () => !view.updating,
+          () => {
+            // wkidSelect.disabled = false;
+            console.log(view.popup);
+          }
+          // { once: true }
+        );
+        popupTemplate.actions.addHandles(handle);
+        // popupTemplate.actions.forEach((action: any) => {
+        //   if ('on' in action) {
+        //     action.on('click', () => {
+        //       // Handle action click event
+        //     });
+        //   } else {
+        //     console.log(view.popup.actions);
+        //   }
+        // });
+        // popupTemplate.actions.forEach((action) => {
+        //   if (action.type === 'button') {
+        //     const buttonAction = action as unknown as HTMLButtonElement;
+        //     buttonAction.addEventListener('click', () => {
+        //       console.log('hi');
+        //     });
+        //   }
+        // });
+        // view.popup.on('trigger-action', (event) => {
+        //   if (event.action.id === 'y-action') {
+        //     // Call your function here
+        //     myFunction();
+        //   }
+        // });
+        // function myFunction() {
+        //   console.log('Button clicked!');
+        //   // Add your logic here
+        // }
+        // popup.on('trigger-action', (event) => {
+        //   if (event.action.id === 'my-action') {
+        //     console.log('hi');
+        //   } else if (event.action.id === 'my-action') {
+        //     console.log('hi not working');
+        //   }
+        // });
+
+        //   // view.on('trigger-action', (event) => {
+        //   //   if (event.action.id === 'my-action') {
+        //   //     alert('hi');
+        //   //   } else if (event.action.id === 'edit-feature') {
+        //   //     // Edit feature logic here
+        //   //   }
+        //   // });
+      });
+
+      view.openPopup({
         title: response.attributes.PlaceName || 'Address',
         content:
           response.attributes.LongLabel +
@@ -364,20 +398,6 @@ export class FrontPageComponent implements OnInit, AfterViewInit, OnDestroy {
       title: titleName,
       outFields: ['*'],
       refreshInterval: 0.1,
-      // popupTemplate: new PopupTemplate({
-      //   title: titleName,
-      //   content: (feature: __esri.Feature) => {
-      //     let content = '';
-      //     for (const attribute in feature.graphic.attributes) {
-      //       if (feature.graphic.attributes.hasOwnProperty(attribute)) {
-      //         content += `<b>${attribute.toUpperCase()}:</b> ${
-      //           feature.graphic.attributes[attribute]
-      //         }<br>`;
-      //       }
-      //     }
-      //     return content;
-      //   },
-      // }),
       popupTemplate: new PopupTemplate({
         title: titleName,
         content: (feature: __esri.Feature) => {
